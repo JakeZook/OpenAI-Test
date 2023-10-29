@@ -1,4 +1,15 @@
 import { config } from "dotenv";
 config();
+import { OpenAI } from "openai";
 
-console.log(process.env.API_KEY);
+const openai = new OpenAI({ apiKey: process.env.API_KEY });
+
+openai.chat.completions
+	.create({
+		model: "gpt-3.5-turbo",
+		messages: [{ role: "user", content: "Hello ChatGPT" }],
+	})
+	.then((res) => {
+		console.log(res.choices[0].message.content);
+		// res.choices.forEach((out) => console.log(out.message));
+	});
